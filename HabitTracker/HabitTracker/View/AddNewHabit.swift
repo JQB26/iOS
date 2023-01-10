@@ -9,9 +9,7 @@ import SwiftUI
 
 struct AddNewHabit: View {
     
-    @FetchRequest(entity: Habit.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Habit.dateAdded, ascending: false)], predicate: nil, animation: .easeInOut) var habits: FetchedResults<Habit>
-    @StateObject var habitModel: HabitViewModel = .init()
-//    @EnvironmentObject var habitModel: HabitViewModel
+    @EnvironmentObject var habitModel: HabitViewModel
     
     @State private var color = Color(UIColor().generateColor(rgba: "0.0 0.0 1.0 0.5"))
     
@@ -45,7 +43,7 @@ struct AddNewHabit: View {
                                 return value == day
                             } ?? -1
                             
-                            Text(day.prefix(2))
+                            Text(day.prefix(3))
                                 .fontWeight(.semibold)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical)
@@ -64,8 +62,49 @@ struct AddNewHabit: View {
                     }
                 }
                 .padding(.vertical)
+                
+                Divider()
+                
+                HStack {
+                    Spacer()
+                    
+                    VStack {
+                        Text("Reminder")
+                        
+                        Text("Notification")
+                            .font(.caption)
+                            .fontWeight(.thin)
+                    }
+                    
+                    Spacer()
+                    
+                    Toggle(isOn: $habitModel.isReminderOn) {}
+                        .labelsHidden()
+                    
+                    Spacer()
+                }
+                .padding()
+                
+                HStack {
+                    Label {
+                        Text(habitModel.reminderDate.formatted(date: .omitted, time: .shortened))
+                    } icon: {
+                        Image(systemName: "clock")
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical)
+                    .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
+                    
+                    TextField("Reminder Text", text: $habitModel.reminderText)
+                        .padding(.horizontal)
+                        .padding(.vertical)
+                        .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
+                }
+                .frame(height: habitModel.isReminderOn ? nil : 0)
+                .opacity(habitModel.isReminderOn ? 1 : 0)
                     
             }
+            .animation(.easeInOut, value: habitModel.isReminderOn)
             .frame(maxWidth: .infinity, alignment: .top)
             .padding()
             .navigationBarTitleDisplayMode(.inline)
