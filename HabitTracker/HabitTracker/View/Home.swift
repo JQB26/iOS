@@ -23,7 +23,7 @@ struct Home: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     Button {
-                        
+                        habitModel.addNewHabit.toggle()
                     } label: {
                         Label {
                             Text("New habit")
@@ -38,7 +38,12 @@ struct Home: View {
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(15)
-//        .sheet(isPresented: $habitModel.addNewHabit, content: <#T##() -> View#>)
+        .sheet(isPresented: $habitModel.addNewHabit) {
+            habitModel.resetData()
+        } content: {
+            AddNewHabit()
+                .environmentObject(habitModel)
+        }
     }
 }
 
