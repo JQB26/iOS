@@ -19,6 +19,8 @@ class HabitViewModel: ObservableObject {
     @Published var reminderText: String = ""
     @Published var reminderDate: Date = Date()
     
+    @Published var editHabit: Habit?
+    
     @Published var showTimePicker: Bool = false
     
     func addHabit(context: NSManagedObjectContext) async -> Bool {
@@ -45,9 +47,18 @@ class HabitViewModel: ObservableObject {
             }
         }
         
-        
-        
         return false
+    }
+    
+    func restoreEditData() {
+        if let editHabit = editHabit {
+            title = editHabit.title ?? ""
+            habitColor = editHabit.color ?? "0.0 0.0 1.0 0.5"
+            weekDays = editHabit.weekDays ?? []
+            isReminderOn = editHabit.isReminderOn
+            reminderText = editHabit.reminderText ?? ""
+            reminderDate = editHabit.notificationDate ?? Date()
+        }
     }
     
     func schedudleNotification() async throws -> [String] {
@@ -97,6 +108,18 @@ class HabitViewModel: ObservableObject {
         isReminderOn = false
         reminderText = ""
         reminderDate = Date()
+        editHabit = nil
+    }
+    
+    func deleteHabit(context: NSManagedObjectContext) -> Bool {
+        if let editHabit = editHabit {
+            context.delete(editHabit)
+            if let _ = try? context.save() {
+                return true
+            }
+        }
+        
+        return true
     }
     
     func doneStatus() -> Bool {

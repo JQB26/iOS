@@ -72,8 +72,65 @@ struct Home: View {
                     .font(.caption)
                     .foregroundColor(.gray)
             }
-            .padding()
+            .padding(3)
+            
+            let calendar = Calendar.current
+            let currentWeek = calendar.dateInterval(of: .weekOfMonth, for: Date())
+            let symbols = calendar.weekdaySymbols
+            let startDate = currentWeek?.start ?? Date()
+            let activeWeekDays = habit.weekDays ?? []
+            let activePlot = symbols.indices.compactMap { index -> (String, Date) in
+                let currentDate = calendar.date(byAdding: .day, value: index, to: startDate)
+                
+                return (symbols[index], currentDate!)
+            }
+            
+            HStack {
+                ForEach(activePlot.indices, id: \.self) { index in
+                    let item = activePlot[index]
+                    
+                    VStack {
+                        Text(item.0.prefix(3))
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                        let status = activeWeekDays.contains { day in
+                            return day == item.0
+                        }
+                        
+                        Text(getDate(date: item.1))
+                            .font(.system(size: 14))
+                            .padding(8)
+                            .lineLimit(1)
+                            .fontWeight(.semibold)
+                            .background {
+                                Circle()
+                                    .fill((Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5"))))
+                                    .opacity(status ? 1 : 0)
+                            }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+            }
         }
+        .padding(.vertical)
+        .padding(.horizontal)
+        .background {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(.gray.opacity(0.5))
+        }
+        .onTapGesture {
+            habitModel.editHabit = habit
+            habitModel.restoreEditData()
+            habitModel.addNewHabit.toggle()
+        }
+    }
+    
+    func getDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        
+        return formatter.string(from: date)
     }
 }
 
