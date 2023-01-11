@@ -25,15 +25,15 @@ class HabitViewModel: ObservableObject {
         let newHabit = Habit(context: context)
         newHabit.title = title
         newHabit.color = habitColor
-        newHabit.weekDays = weekDays as NSObject
+        newHabit.weekDays = weekDays
         newHabit.isReminderOn = isReminderOn
         newHabit.reminderText = reminderText
         newHabit.notificationDate = reminderDate
-        newHabit.notificationIDs = [] as NSObject
+        newHabit.notificationIDs = []
         
         if isReminderOn {
             if let ids = try? await schedudleNotification() {
-                newHabit.notificationIDs = ids as NSObject
+                newHabit.notificationIDs = ids
                 
                 if let _ = try? context.save() {
                      return true

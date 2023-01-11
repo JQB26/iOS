@@ -20,8 +20,12 @@ struct Home: View {
                 .frame(maxWidth: .infinity)
                 
             
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(habits.isEmpty ? .init() : .vertical, showsIndicators: false) {
                 VStack {
+                    ForEach(habits) { habit in
+                        HabitCardView(habit: habit)
+                    }
+                    
                     Button {
                         habitModel.addNewHabit.toggle()
                     } label: {
@@ -33,6 +37,8 @@ struct Home: View {
                         .font(.callout.bold())
                         .foregroundColor(.black)
                     }
+                    .padding(5)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
         }
@@ -43,6 +49,30 @@ struct Home: View {
         } content: {
             AddNewHabit()
                 .environmentObject(habitModel)
+        }
+    }
+    
+    @ViewBuilder
+    func HabitCardView(habit: Habit) -> some View {
+        VStack {
+            HStack {
+                Text(habit.title ?? "")
+                    .font(.callout)
+                    .lineLimit(1)
+                
+                Image(systemName: "bell.badge.fill")
+                    .font(.callout)
+                    .foregroundColor(Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5")))
+                    .opacity(habit.isReminderOn ? 1 : 0)
+                
+                Spacer()
+                
+                let count = (habit.weekDays?.count ?? 0)
+                Text(count == 7 ? "Everyday" : "\(count) times a week")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            .padding()
         }
     }
 }
