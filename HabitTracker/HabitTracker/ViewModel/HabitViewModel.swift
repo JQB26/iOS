@@ -23,19 +23,42 @@ class HabitViewModel: ObservableObject {
     
     @Published var showTimePicker: Bool = false
     
+    @Published var notificationAccess: Bool = false
+    
+    init() {
+        requestNotificationAccess()
+    }
+    
+    func requestNotificationAccess() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .alert]) { status, _ in
+            DispatchQueue.main.async {
+                self.notificationAccess = status
+            }
+        }
+    }
+    
     func addHabit(context: NSManagedObjectContext) async -> Bool {
-        let newHabit = Habit(context: context)
-        newHabit.title = title
-        newHabit.color = habitColor
-        newHabit.weekDays = weekDays
-        newHabit.isReminderOn = isReminderOn
-        newHabit.reminderText = reminderText
-        newHabit.notificationDate = reminderDate
-        newHabit.notificationIDs = []
+        var habit: Habit!
+        
+        if let editHabit = editHabit {
+            habit = editHabit
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: editHabit.notificationIDs ?? [])
+        } else {
+            habit = Habit(context: context)
+        }
+        
+        habit.title = title
+        habit.color = habitColor
+        habit.weekDays = weekDays
+        habit.isReminderOn = isReminderOn
+        habit.reminderText = reminderText
+        habit.notificationDate = reminderDate
+        habit.notificationIDs = []
         
         if isReminderOn {
             if let ids = try? await schedudleNotification() {
-                newHabit.notificationIDs = ids
+                habit.notificationIDs = ids
                 
                 if let _ = try? context.save() {
                      return true
@@ -113,6 +136,9 @@ class HabitViewModel: ObservableObject {
     
     func deleteHabit(context: NSManagedObjectContext) -> Bool {
         if let editHabit = editHabit {
+            if editHabit.isReminderOn {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: editHabit.notificationIDs ?? [])
+            }
             context.delete(editHabit)
             if let _ = try? context.save() {
                 return true

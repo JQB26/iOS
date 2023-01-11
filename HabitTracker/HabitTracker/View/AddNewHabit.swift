@@ -85,6 +85,7 @@ struct AddNewHabit: View {
                     Spacer()
                 }
                 .padding()
+                .opacity(habitModel.notificationAccess ? 1 : 0)
                 
                 HStack {
                     Label {
