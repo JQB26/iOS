@@ -6,19 +6,18 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct Home: View {
     
     var body: some View {
         TabView {
-            Habits()
+            Today()
                 .tabItem {
-                    Label("Habits", systemImage: "calendar")
+                    Label("Today", systemImage: "calendar.day.timeline.left")
                 }
             Habits()
                 .tabItem {
-                    Label("Today", systemImage: "calendar.day.timeline.left")
+                    Label("Habits", systemImage: "calendar")
                 }
         }
     }

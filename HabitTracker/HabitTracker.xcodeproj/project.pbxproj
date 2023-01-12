@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D1030056296F892300031902 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1030055296F892300031902 /* Habits.swift */; };
+		D1030058296F8CDD00031902 /* Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1030057296F8CDD00031902 /* Today.swift */; };
 		D1B811EF296D8C6000E0A609 /* HabitTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B811EE296D8C6000E0A609 /* HabitTrackerApp.swift */; };
 		D1B811F1296D8C6000E0A609 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B811F0296D8C6000E0A609 /* ContentView.swift */; };
 		D1B811F3296D8C6400E0A609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B811F2296D8C6400E0A609 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		D1030055296F892300031902 /* Habits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
+		D1030057296F8CDD00031902 /* Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Today.swift; sourceTree = "<group>"; };
 		D1B811EB296D8C6000E0A609 /* HabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B811EE296D8C6000E0A609 /* HabitTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerApp.swift; sourceTree = "<group>"; };
 		D1B811F0296D8C6000E0A609 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				D1B8121F296D8F8700E0A609 /* Home.swift */,
 				D1B81223296D9BE100E0A609 /* AddNewHabit.swift */,
 				D1030055296F892300031902 /* Habits.swift */,
+				D1030057296F8CDD00031902 /* Today.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				D1B811FB296D8C6400E0A609 /* HabitTracker.xcdatamodeld in Sources */,
 				D1030056296F892300031902 /* Habits.swift in Sources */,
 				D1B81220296D8F8700E0A609 /* Home.swift in Sources */,
+				D1030058296F8CDD00031902 /* Today.swift in Sources */,
 				D1B81224296D9BE100E0A609 /* AddNewHabit.swift in Sources */,
 				D1B81222296D96DB00E0A609 /* HabitViewModel.swift in Sources */,
 				D1B811F1296D8C6000E0A609 /* ContentView.swift in Sources */,
