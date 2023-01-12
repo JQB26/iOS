@@ -53,7 +53,7 @@ class HabitViewModel: ObservableObject {
         habit.weekDays = weekDays
         habit.isReminderOn = isReminderOn
         habit.reminderText = reminderText
-        habit.notificationDate = reminderDate
+        habit.reminderDate = reminderDate
         habit.notificationIDs = []
         
         if isReminderOn {
@@ -80,7 +80,7 @@ class HabitViewModel: ObservableObject {
             weekDays = editHabit.weekDays ?? []
             isReminderOn = editHabit.isReminderOn
             reminderText = editHabit.reminderText ?? ""
-            reminderDate = editHabit.notificationDate ?? Date()
+            reminderDate = editHabit.reminderDate ?? Date()
         }
     }
     
