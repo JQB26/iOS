@@ -20,6 +20,7 @@ struct Home: View {
                     Label("Habits", systemImage: "calendar")
                 }
         }
+        .accentColor(Color("Color"))
     }
 }
 

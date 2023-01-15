@@ -3,13 +3,18 @@
 //  HabitTracker
 //
 //  Created by Jakub Szczepanek on 10/01/2023.
-//
+//  Inspired by https://www.youtube.com/watch?v=oSF7fSPGmNo
 
 import SwiftUI
 
 @main
 struct HabitTrackerApp: App {
     let persistenceController = PersistenceController.shared
+    
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color("Color 3").opacity(0.6))
+        UITabBar.appearance().backgroundColor = UIColor(Color("Background darker"))
+    }
 
     var body: some Scene {
         WindowGroup {

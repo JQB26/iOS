@@ -16,165 +16,99 @@ struct AddNewHabit: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                TextField("Title", text: $habitModel.title)
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                    .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
-                
-                ColorPicker("Color", selection: $color, supportsOpacity: false)
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                    .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
-                    .onChange(of: color) { newColor in
-                        let colorString = newColor.description
-                            .replacingOccurrences(of: "kCGColorSpaceModelRGB ", with: "")
-                        
-                        habitModel.habitColor = colorString
-                    }
-                
+            ZStack {
+                Color("Color 3")
+                    .ignoresSafeArea()
                 
                 VStack {
-                    Text("Frequency")
+                    TextField("Title", text: $habitModel.title)
+                        .padding(.horizontal)
+                        .padding(.vertical)
+                        .background(Color("Background"), in: RoundedRectangle(cornerRadius: 6))
+                        .foregroundColor(Color("Color"))
                     
-                    let weekDays = Calendar.current.weekdaySymbols
-                    HStack {
-                        ForEach(weekDays, id: \.self) { day in
-                            let index = habitModel.weekDays.firstIndex { value in
-                                return value == day
-                            } ?? -1
-                            
-                            Text(day.prefix(3))
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical)
-                                .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(index != -1 ? Color(UIColor().generateColor(rgba: habitModel.habitColor)) : .gray.opacity(0.3)))
-                                .onTapGesture {
-                                    withAnimation {
-                                        if index != -1 {
-                                            habitModel.weekDays.remove(at: index)
-                                        } else {
-                                            habitModel.weekDays.append(day)
-                                        }
-                                    }
-                                }
-                        }
-                    }
-                }
-                .padding(.vertical)
-                
-                Divider()
-                
-                HStack {
-                    Spacer()
-                    
-                    VStack {
-                        Text("Reminder")
-                        
-                        Text("Notification")
-                            .font(.caption)
-                            .fontWeight(.thin)
-                    }
-                    
-                    Spacer()
-                    
-                    Toggle(isOn: $habitModel.isReminderOn) {}
-                        .labelsHidden()
-                    
-                    Spacer()
-                }
-                .padding()
-                .opacity(habitModel.notificationAccess ? 1 : 0)
-                
-                HStack {
-                    Label {
-                        Text(habitModel.reminderDate.formatted(date: .omitted, time: .shortened))
-                    } icon: {
-                        Image(systemName: "clock")
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                    .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
-                    .onTapGesture {
-                        withAnimation {
-                            habitModel.showTimePicker.toggle()
-                        }
-                    }
-                    
-                    TextField("Reminder Text", text: $habitModel.reminderText)
+                    ColorPicker("Color", selection: $color, supportsOpacity: false)
                         .padding(.horizontal)
                         .padding(.vertical)
                         .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
-                }
-                .frame(height: habitModel.isReminderOn ? nil : 0)
-                .opacity(habitModel.isReminderOn ? 1 : 0)
-                    
-            }
-            .animation(.easeInOut, value: habitModel.isReminderOn)
-            .frame(maxWidth: .infinity, alignment: .top)
-            .padding()
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(habitModel.editHabit == nil ? "Add habit" : "Edit habit")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        env.dismiss()
-                    } label: {
-                        Image(systemName: "xmark.circle")
-                    }
-                    .tint(.black)
-                }
-                
-                ToolbarItem(placement: .bottomBar) {
-                    Button {
-                        if habitModel.deleteHabit(context: env.managedObjectContext) {
-                            env.dismiss()
+                        .onChange(of: color) { newColor in
+                            let colorString = newColor.description
+                                .replacingOccurrences(of: "kCGColorSpaceModelRGB ", with: "")
+                            
+                            habitModel.habitColor = colorString
                         }
-                    } label: {
-                        Image(systemName: "trash")
+                    
+                    
+                    VStack {
+                        Text("Frequency")
+                        
+                        let weekDays = Calendar.current.weekdaySymbols
+                        HStack {
+                            ForEach(weekDays, id: \.self) { day in
+                                let index = habitModel.weekDays.firstIndex { value in
+                                    return value == day
+                                } ?? -1
+                                
+                                Text(day.prefix(3))
+                                    .fontWeight(.semibold)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical)
+                                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(index != -1 ? Color(UIColor().generateColor(rgba: habitModel.habitColor)) : .gray.opacity(0.3)))
+                                    .onTapGesture {
+                                        withAnimation {
+                                            if index != -1 {
+                                                habitModel.weekDays.remove(at: index)
+                                            } else {
+                                                habitModel.weekDays.append(day)
+                                            }
+                                        }
+                                    }
+                            }
+                        }
                     }
-                    .tint(.red)
-                    .opacity(habitModel.editHabit == nil ? 0 : 1)
+                    .padding(.vertical)
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        Task {
-                            if await habitModel.addHabit(context: env.managedObjectContext) {
+                .frame(maxWidth: .infinity, alignment: .top)
+                .padding()
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(habitModel.editHabit == nil ? "Add habit" : "Edit habit")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            env.dismiss()
+                        } label: {
+                            Image(systemName: "xmark.circle")
+                        }
+                        .tint(.black)
+                    }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        Button {
+                            if habitModel.deleteHabit(context: env.managedObjectContext) {
                                 env.dismiss()
                             }
+                        } label: {
+                            Image(systemName: "trash")
                         }
-                    } label: {
-                        Text("Done")
+                        .tint(.red)
+                        .opacity(habitModel.editHabit == nil ? 0 : 1)
                     }
-                    .tint(.black)
-                    .disabled(!habitModel.doneStatus())
-                    .opacity(habitModel.doneStatus() ? 1 : 0.5)
-                }
-            }
-        }
-        .overlay {
-            if habitModel.showTimePicker {
-                ZStack {
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            withAnimation {
-                                habitModel.showTimePicker.toggle()
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            Task {
+                                if await habitModel.addHabit(context: env.managedObjectContext) {
+                                    env.dismiss()
+                                }
                             }
+                        } label: {
+                            Text("Done")
                         }
-
-                    DatePicker.init("", selection: $habitModel.reminderDate, displayedComponents: [.hourAndMinute])
-                        .datePickerStyle(.wheel)
-                        .labelsHidden()
-                        .padding()
-                        .background {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.gray)
-                        }
-                        .padding()
+                        .tint(.black)
+                        .disabled(!habitModel.doneStatus())
+                        .opacity(habitModel.doneStatus() ? 1 : 0.5)
+                    }
                 }
             }
         }

@@ -16,32 +16,33 @@ struct Habits: View {
             Text("Habit Tracker")
                 .font(.title.bold())
                 .frame(maxWidth: .infinity)
-                
+                .foregroundColor(Color("Color"))
+            
+            Button {
+                habitModel.addNewHabit.toggle()
+            } label: {
+                Label {
+                    Text("New habit")
+                } icon: {
+                    Image(systemName: "plus.circle")
+                }
+                .font(.callout.bold())
+                .foregroundColor(.black)
+            }
+            .padding(5)
+            .frame(maxWidth: .infinity, alignment: .center)
             
             ScrollView(habits.isEmpty ? .init() : .vertical, showsIndicators: false) {
                 VStack {
                     ForEach(habits) { habit in
                         HabitCardView(habit: habit)
                     }
-                    
-                    Button {
-                        habitModel.addNewHabit.toggle()
-                    } label: {
-                        Label {
-                            Text("New habit")
-                        } icon: {
-                            Image(systemName: "plus.circle")
-                        }
-                        .font(.callout.bold())
-                        .foregroundColor(.black)
-                    }
-                    .padding(5)
-                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(15)
+        .background(Color("Background"))
         .sheet(isPresented: $habitModel.addNewHabit) {
             habitModel.resetData()
         } content: {
@@ -57,11 +58,6 @@ struct Habits: View {
                 Text(habit.title ?? "")
                     .font(.callout)
                     .lineLimit(1)
-                
-                Image(systemName: "bell.badge.fill")
-                    .font(.callout)
-                    .foregroundColor(Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5")))
-                    .opacity(habit.isReminderOn ? 1 : 0)
                 
                 Spacer()
                 
@@ -90,7 +86,7 @@ struct Habits: View {
                     VStack {
                         Text(item.0.prefix(3))
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.white)
                         
                         let status = activeWeekDays.contains { day in
                             return day == item.0
@@ -115,7 +111,7 @@ struct Habits: View {
         .padding(.horizontal)
         .background {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(.gray.opacity(0.5))
+                .fill(Color("Color 3"))
         }
         .onTapGesture {
             habitModel.editHabit = habit
