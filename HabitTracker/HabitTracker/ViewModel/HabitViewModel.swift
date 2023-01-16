@@ -19,7 +19,13 @@ class HabitViewModel: ObservableObject {
     @Published var editHabit: Habit?
     
     func addHabit(context: NSManagedObjectContext) async -> Bool {
-        let habit = Habit(context: context)
+        var habit: Habit!
+
+        if let editHabit = editHabit {
+            habit = editHabit
+        } else {
+            habit = Habit(context: context)
+        }
         
         habit.title = title
         habit.color = habitColor
