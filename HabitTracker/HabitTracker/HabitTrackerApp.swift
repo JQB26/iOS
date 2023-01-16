@@ -6,6 +6,7 @@
 //  Inspired by https://www.youtube.com/watch?v=oSF7fSPGmNo
 
 import SwiftUI
+import Qualtrics
 
 @main
 struct HabitTrackerApp: App {
@@ -14,6 +15,9 @@ struct HabitTrackerApp: App {
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color("Color 3").opacity(0.6))
         UITabBar.appearance().backgroundColor = UIColor(Color("Background darker"))
+        
+        // TODO: read from env variables
+        Qualtrics.shared.initializeProject(brandId: "", projectId: "", extRefId: "", completion: { (myInitializationResult) in print(myInitializationResult);})
     }
 
     var body: some Scene {
