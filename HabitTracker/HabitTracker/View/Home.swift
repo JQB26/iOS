@@ -31,7 +31,7 @@ struct Home: View {
                 Image(systemName: "envelope")
                     .frame(width: 45, height: 45)
                     .foregroundColor(.white)
-                    .background(.red)
+                    .background(Color("Background darker"))
                     .clipShape(Circle())
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)

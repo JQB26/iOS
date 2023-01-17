@@ -17,15 +17,14 @@ struct AddNewHabit: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color("Color 3")
+                Color("Background darker")
                     .ignoresSafeArea()
-                
                 VStack {
                     TextField("Title", text: $habitModel.title)
                         .padding(.horizontal)
                         .padding(.vertical)
-                        .background(Color("Background"), in: RoundedRectangle(cornerRadius: 6))
-                        .foregroundColor(Color("Color"))
+                        .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
+                
                     
                     ColorPicker("Color", selection: $color, supportsOpacity: false)
                         .padding(.horizontal)
@@ -37,10 +36,12 @@ struct AddNewHabit: View {
                             
                             habitModel.habitColor = colorString
                         }
+                        .foregroundColor(Color("Color 3"))
                     
                     
                     VStack {
                         Text("Frequency")
+                            .foregroundColor(Color("Color 3"))
                         
                         let weekDays = Calendar.current.weekdaySymbols
                         HStack {
@@ -64,6 +65,7 @@ struct AddNewHabit: View {
                                             }
                                         }
                                     }
+                                    .foregroundColor(Color("Color 3"))
                             }
                         }
                     }
@@ -80,7 +82,7 @@ struct AddNewHabit: View {
                         } label: {
                             Image(systemName: "xmark.circle")
                         }
-                        .tint(.black)
+                        .tint(Color("Color"))
                     }
                     
                     ToolbarItem(placement: .bottomBar) {
@@ -105,7 +107,7 @@ struct AddNewHabit: View {
                         } label: {
                             Text("Done")
                         }
-                        .tint(.black)
+                        .tint(Color("Color"))
                         .disabled(!habitModel.doneStatus())
                         .opacity(habitModel.doneStatus() ? 1 : 0.5)
                     }

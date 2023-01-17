@@ -27,7 +27,7 @@ struct Habits: View {
                     Image(systemName: "plus.circle")
                 }
                 .font(.callout.bold())
-                .foregroundColor(.black)
+                .foregroundColor(Color("Color 3"))
             }
             .padding(5)
             .frame(maxWidth: .infinity, alignment: .center)
@@ -58,13 +58,15 @@ struct Habits: View {
                 Text(habit.title ?? "")
                     .font(.callout)
                     .lineLimit(1)
+                    .foregroundColor(Color("Color"))
                 
                 Spacer()
                 
                 let count = (habit.weekDays?.count ?? 0)
                 Text(count == 7 ? "Everyday" : "\(count) times a week")
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("Color 3"))
+                    .opacity(0.5)
             }
             .padding(3)
             
@@ -86,7 +88,7 @@ struct Habits: View {
                     VStack {
                         Text(item.0.prefix(3))
                             .font(.caption)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("Color 3"))
                         
                         let status = activeWeekDays.contains { day in
                             return day == item.0
@@ -111,7 +113,7 @@ struct Habits: View {
         .padding(.horizontal)
         .background {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color("Color 3"))
+                .fill(Color("Color 4"))
         }
         .onTapGesture {
             habitModel.editHabit = habit

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import UserNotifications
 
 class HabitViewModel: ObservableObject {
     @Published var addNewHabit: Bool = false
@@ -15,6 +14,7 @@ class HabitViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var habitColor: String = "0.0 0.0 1.0 0.5"
     @Published var weekDays: [String] = []
+    @Published var uuid: UUID = UUID()
     
     @Published var editHabit: Habit?
     
@@ -30,6 +30,7 @@ class HabitViewModel: ObservableObject {
         habit.title = title
         habit.color = habitColor
         habit.weekDays = weekDays
+        habit.uuid = uuid
         
         if let _ = try? context.save() {
              return true
@@ -43,6 +44,7 @@ class HabitViewModel: ObservableObject {
             title = editHabit.title ?? ""
             habitColor = editHabit.color ?? "0.0 0.0 1.0 0.5"
             weekDays = editHabit.weekDays ?? []
+            uuid = editHabit.uuid ?? UUID()
         }
     }
     
@@ -51,6 +53,7 @@ class HabitViewModel: ObservableObject {
         habitColor = "0.0 0.0 1.0 0.5"
         weekDays = []
         editHabit = nil
+        uuid = UUID()
     }
     
     func deleteHabit(context: NSManagedObjectContext) -> Bool {

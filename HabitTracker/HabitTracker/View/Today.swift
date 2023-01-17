@@ -11,10 +11,13 @@ import CoreData
 struct Today: View {
     @FetchRequest(entity: Habit.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Habit.dateAdded, ascending: false)], predicate: nil, animation: .easeInOut) var habits: FetchedResults<Habit>
     
+    @EnvironmentObject var habitModel: HabitViewModel
+    
     var body: some View {
         VStack {
             Text("Habit Tracker")
                 .font(.title.bold())
+                .foregroundColor(Color("Color"))
                 .frame(maxWidth: .infinity)
         
             let calendar = Calendar.current
@@ -24,21 +27,23 @@ struct Today: View {
             
             ForEach(todayHabits) { habit in
                 HStack {
+                    Image(systemName: habit.doneToday ? "circle.fill" : "circle")
+                        .foregroundColor(Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5")))
+                        .onTapGesture {
+                            withAnimation {
+                                habit.doneToday.toggle()
+                            }
+                        }
+                    
                     Text(habit.title ?? "")
                         .font(.callout.bold())
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "square")
-                            .tint(.black)
-                    }
+                        .foregroundColor(Color("Color"))
                 }
                 .padding(.horizontal)
                 .padding(.vertical)
-                .background(Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5")), in: RoundedRectangle(cornerRadius: 6))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color("Color 4"), in: RoundedRectangle(cornerRadius: 6))
+                
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)

@@ -11,6 +11,8 @@
 		8737764B29BE051FE95AED4A /* Pods_HabitTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664CF6D8342F37139A606F09 /* Pods_HabitTrackerTests.framework */; };
 		D1030056296F892300031902 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1030055296F892300031902 /* Habits.swift */; };
 		D1030058296F8CDD00031902 /* Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1030057296F8CDD00031902 /* Today.swift */; };
+		D159A05929770ED100ED93C3 /* TodaysHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = D159A05829770ED100ED93C3 /* TodaysHabits.swift */; };
+		D159A05B297712BD00ED93C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D159A05A297712BD00ED93C3 /* GoogleService-Info.plist */; };
 		D1B811EF296D8C6000E0A609 /* HabitTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B811EE296D8C6000E0A609 /* HabitTrackerApp.swift */; };
 		D1B811F1296D8C6000E0A609 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B811F0296D8C6000E0A609 /* ContentView.swift */; };
 		D1B811F3296D8C6400E0A609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B811F2296D8C6400E0A609 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 		CE1B8C18510F40B939865946 /* Pods-HabitTracker-HabitTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabitTracker-HabitTrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-HabitTracker-HabitTrackerUITests/Pods-HabitTracker-HabitTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D1030055296F892300031902 /* Habits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
 		D1030057296F8CDD00031902 /* Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Today.swift; sourceTree = "<group>"; };
+		D159A05829770ED100ED93C3 /* TodaysHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysHabits.swift; sourceTree = "<group>"; };
+		D159A05A297712BD00ED93C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D1B811EB296D8C6000E0A609 /* HabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B811EE296D8C6000E0A609 /* HabitTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerApp.swift; sourceTree = "<group>"; };
 		D1B811F0296D8C6000E0A609 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 		D1B811ED296D8C6000E0A609 /* HabitTracker */ = {
 			isa = PBXGroup;
 			children = (
+				D159A05A297712BD00ED93C3 /* GoogleService-Info.plist */,
 				D1B8121E296D8F3E00E0A609 /* ViewModel */,
 				D1B8121D296D8F3100E0A609 /* View */,
 				D1B811EE296D8C6000E0A609 /* HabitTrackerApp.swift */,
@@ -193,6 +198,7 @@
 			children = (
 				D1B81221296D96DB00E0A609 /* HabitViewModel.swift */,
 				D1DC966929758787003713ED /* HomeViewModel.swift */,
+				D159A05829770ED100ED93C3 /* TodaysHabits.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -318,6 +324,7 @@
 			files = (
 				D1B811F6296D8C6400E0A609 /* Preview Assets.xcassets in Resources */,
 				D1B811F3296D8C6400E0A609 /* Assets.xcassets in Resources */,
+				D159A05B297712BD00ED93C3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +457,7 @@
 				D1030056296F892300031902 /* Habits.swift in Sources */,
 				D1DC966A29758787003713ED /* HomeViewModel.swift in Sources */,
 				D1B81220296D8F8700E0A609 /* Home.swift in Sources */,
+				D159A05929770ED100ED93C3 /* TodaysHabits.swift in Sources */,
 				D1030058296F8CDD00031902 /* Today.swift in Sources */,
 				D1B81224296D9BE100E0A609 /* AddNewHabit.swift in Sources */,
 				D1B81222296D96DB00E0A609 /* HabitViewModel.swift in Sources */,

@@ -6,6 +6,10 @@ target 'HabitTracker' do
   use_frameworks!
     pod 'Qualtrics'
 
+    pod 'FirebaseAnalytics'
+    pod 'FirebaseAuth'
+    pod 'FirebaseFirestore'
+
   # Pods for HabitTracker
 
   target 'HabitTrackerTests' do

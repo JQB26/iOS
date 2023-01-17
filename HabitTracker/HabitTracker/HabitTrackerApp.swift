@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Qualtrics
+import SwiftUI
+import FirebaseCore
 
 @main
 struct HabitTrackerApp: App {
@@ -16,8 +18,10 @@ struct HabitTrackerApp: App {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color("Color 3").opacity(0.6))
         UITabBar.appearance().backgroundColor = UIColor(Color("Background darker"))
         
-        // TODO: read from env variables
+        // TODO: fill before the run
         Qualtrics.shared.initializeProject(brandId: "", projectId: "", extRefId: "", completion: { (myInitializationResult) in print(myInitializationResult);})
+     
+        FirebaseApp.configure()
     }
 
     var body: some Scene {
