@@ -16,7 +16,24 @@ class HabitViewModel: ObservableObject {
     @Published var weekDays: [String] = []
     @Published var uuid: UUID = UUID()
     
+    @Published var doneToday: Bool = false
+    @Published var doneTodayChangeDate: Date = Date()
+    
     @Published var editHabit: Habit?
+    
+    func updateDoneToday(context: NSManagedObjectContext) async -> Bool {
+        let habit = editHabit!
+        
+        if !Calendar.current.isDateInToday(habit.doneTodayChangeDate ?? Date.distantPast) {
+            habit.doneToday = false
+        }
+        
+        if let _ = try? context.save() {
+             return true
+        }
+        
+        return false
+    }
     
     func addHabit(context: NSManagedObjectContext) async -> Bool {
         var habit: Habit!
@@ -31,6 +48,8 @@ class HabitViewModel: ObservableObject {
         habit.color = habitColor
         habit.weekDays = weekDays
         habit.uuid = uuid
+        habit.doneToday = doneToday
+        habit.doneTodayChangeDate = doneTodayChangeDate
         
         if let _ = try? context.save() {
              return true
@@ -45,6 +64,8 @@ class HabitViewModel: ObservableObject {
             habitColor = editHabit.color ?? "0.0 0.0 1.0 0.5"
             weekDays = editHabit.weekDays ?? []
             uuid = editHabit.uuid ?? UUID()
+            doneToday = editHabit.doneToday
+            doneTodayChangeDate = editHabit.doneTodayChangeDate ?? Date.now
         }
     }
     
@@ -54,6 +75,8 @@ class HabitViewModel: ObservableObject {
         weekDays = []
         editHabit = nil
         uuid = UUID()
+        doneToday = false
+        doneTodayChangeDate = Date()
     }
     
     func deleteHabit(context: NSManagedObjectContext) -> Bool {
@@ -63,7 +86,6 @@ class HabitViewModel: ObservableObject {
                 return true
             }
         }
-        
         return true
     }
     

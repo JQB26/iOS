@@ -11,14 +11,18 @@ struct Home: View {
     
     @StateObject private var viewModel = HomeViewModel()
     
+    @StateObject var habitModel: HabitViewModel = .init()
+    
     var body: some View {
         ZStack {
             TabView {
                 Today()
+                    .environmentObject(habitModel)
                     .tabItem {
                         Label("Today", systemImage: "calendar.day.timeline.left")
                     }
                 Habits()
+                    .environmentObject(habitModel)
                     .tabItem {
                         Label("Habits", systemImage: "calendar")
                     }
