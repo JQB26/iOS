@@ -68,14 +68,15 @@ struct Today: View {
         .padding(15)
         .background(Color("Background"))
         .task {
-//            for habit in habits {
-//                habitModel.restoreEditData()
-//                habitModel.editHabit = habit
-//
-//                if await habitModel.updateDoneToday(context: env.managedObjectContext) {
-//                    env.dismiss()
-//                }
-//            }
+            for habit in habits {
+                habitModel.restoreEditData()
+                habitModel.editHabit = habit
+
+                if await habitModel.updateDoneToday(context: env.managedObjectContext) {
+                    habitModel.resetData()
+                    env.dismiss()
+                }
+            }
             
         }
     }
