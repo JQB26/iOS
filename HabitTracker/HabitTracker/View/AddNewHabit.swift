@@ -20,11 +20,14 @@ struct AddNewHabit: View {
                 Color("Background darker")
                     .ignoresSafeArea()
                 VStack {
-                    TextField("Title", text: $habitModel.title)
+                    TextField("", text: $habitModel.title)
+                        .placeholder(when: habitModel.title.isEmpty) {
+                            Text("Title").foregroundColor(Color("Color 3"))
+                    }
                         .padding(.horizontal)
                         .padding(.vertical)
                         .background(.gray.opacity(0.3), in: RoundedRectangle(cornerRadius: 6))
-                
+                        .foregroundColor(Color("Color 3"))
                     
                     ColorPicker("Color", selection: $color, supportsOpacity: false)
                         .padding(.horizontal)
@@ -135,5 +138,18 @@ extension UIColor {
         let rgbaList = rgba.components(separatedBy: " ").map { CGFloat(Double($0) ?? 0.0) }
         
         return UIColor.init(red: rgbaList[0], green: rgbaList[1], blue: rgbaList[2], alpha: rgbaList[3])
+    }
+}
+
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
     }
 }

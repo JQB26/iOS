@@ -25,25 +25,29 @@ struct Today: View {
             let todayWeekdaySymbol = calendar.weekdaySymbols[todayWeekday! - 1]
             let todayHabits = habits.filter { $0.weekDays?.contains(todayWeekdaySymbol) ?? false }
             
-            ForEach(todayHabits) { habit in
-                HStack {
-                    Image(systemName: habit.doneToday ? "circle.fill" : "circle")
-                        .foregroundColor(Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5")))
-                        .onTapGesture {
-                            withAnimation {
-                                habit.doneToday.toggle()
-                            }
+            ScrollView(habits.isEmpty ? .init() : .vertical, showsIndicators: false) {
+                VStack {
+                    ForEach(todayHabits) { habit in
+                        HStack {
+                            Image(systemName: habit.doneToday ? "circle.fill" : "circle")
+                                .foregroundColor(Color(UIColor().generateColor(rgba: habit.color ?? "0.0 0.0 1.0 0.5")))
+                                .onTapGesture {
+                                    withAnimation {
+                                        habit.doneToday.toggle()
+                                    }
+                                }
+                            
+                            Text(habit.title ?? "")
+                                .font(.callout.bold())
+                                .foregroundColor(Color("Color"))
                         }
-                    
-                    Text(habit.title ?? "")
-                        .font(.callout.bold())
-                        .foregroundColor(Color("Color"))
+                        .padding(.horizontal)
+                        .padding(.vertical)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color("Color 4"), in: RoundedRectangle(cornerRadius: 6))
+                        
+                    }
                 }
-                .padding(.horizontal)
-                .padding(.vertical)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color("Color 4"), in: RoundedRectangle(cornerRadius: 6))
-                
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)
