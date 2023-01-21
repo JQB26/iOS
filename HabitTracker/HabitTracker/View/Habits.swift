@@ -20,22 +20,24 @@ struct Habits: View {
                 .frame(maxWidth: .infinity)
                 .foregroundColor(Color("Color"))
             
-            Button {
-                habitModel.addNewHabit.toggle()
-            } label: {
-                Label {
-                    Text("New habit")
-                } icon: {
-                    Image(systemName: "plus.circle")
-                }
-                .font(.callout.bold())
-                .foregroundColor(Color("Color 3"))
-            }
-            .padding(5)
-            .frame(maxWidth: .infinity, alignment: .center)
+            
             
             ScrollView(habits.isEmpty ? .init() : .vertical, showsIndicators: false) {
                 VStack {
+                    Button {
+                        habitModel.addNewHabit.toggle()
+                    } label: {
+                        Label {
+                            Text("New habit")
+                        } icon: {
+                            Image(systemName: "plus.circle")
+                        }
+                        .font(.callout.bold())
+                        .foregroundColor(Color("Color 3"))
+                    }
+                    .padding(5)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    
                     ForEach(habits) { habit in
                         HabitCardView(habit: habit)
                     }

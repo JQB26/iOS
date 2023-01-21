@@ -29,6 +29,11 @@ struct Today: View {
             
             ScrollView(habits.isEmpty ? .init() : .vertical, showsIndicators: false) {
                 VStack {
+                    Text("No habits for today")
+                        .foregroundColor(Color("Color 3"))
+                        .opacity(todayHabits.isEmpty ? 1 : 0)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    
                     ForEach(sortedTodayHabits) { habit in
                         HStack {
                             Image(systemName: habit.doneToday ? "circle.fill" : "circle")
